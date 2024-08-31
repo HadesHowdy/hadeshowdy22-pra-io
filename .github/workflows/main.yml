@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="shortcut icon"
+      href="https://www.iconpacks.net/icons/1/free-heart-icon-431-thumb.png"
+      type="image/x-icon"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <title>เป็นแฟนกันมั้ย</title>
+  </head>
+  <body>
+    <!-- หน้าแรก -->
+    <div id="mainPage" class="container">
+      <span class="title">เป็นแฟนกันม้ายยย?</span>
+      <img id="mainImage" src="doyou.png" alt="Do you?" />
+
+      <!-- ปุ่มกด -->
+      <div class="button-container">
+        <button
+          id="noButton"
+          class="button"
+          onmouseover="changeImage('hm.png')"
+          onmouseout="resetImage()"
+          onclick="handleNoClick()"
+        >
+          ไม่
+        </button>
+        <button
+          id="loveButton"
+          class="button"
+          onmouseover="changeImage('pinkping.png')"
+          onmouseout="resetImage()"
+          onclick="showPage('lovePage')"
+        >
+          รักกก
+        </button>
+      </div>
+    </div>
+
+    <!-- หน้ากด รักกกก -->
+    <div id="lovePage" class="container hidden">
+      <h1>กฟหสวก่ฟหกา่กหาสฟ แงงเค้ารักเบเบี๋ที่สุดเลยย</h1>
+      <img src="1.png" alt="Love You" />
+    </div>
+
+    <!-- หน้าถ้ายังจะกด No เรื่อยๆ  -->
+    <div id="noPage" class="container hidden">
+      <h1>แล้วแต่</h1>
+      <img src="2.png" alt="Die" />
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
+
+{
+  document.getElementById("mainImage").src = newSrc;
+}
+
+function resetImage() {
+  document.getElementById("mainImage").src = "doyou.png";
+}
+// จำนวนปุ่มไม่ลิมิตที่เท่าไหร่ใส่ตรงนี้
+function handleNoClick() {
+  noClickCount++;
+  if (noClickCount < 10) {
+    shrinkNoButton();
+    moveNoButton();
+  } else {
+    showPage("noPage");
+  }
+}
+
+function shrinkNoButton() {
+  const noButton = document.getElementById("noButton");
+  const currentPadding = parseFloat(getComputedStyle(noButton).padding);
+  const currentFontSize = parseFloat(getComputedStyle(noButton).fontSize);
+
+  noButton.style.padding = `${currentPadding * 0.9}px`;
+  noButton.style.fontSize = `${currentFontSize * 0.9}px`;
+}
+
+function moveNoButton() {
+  const noButton = document.getElementById("noButton");
+  const container = noButton.parentElement;
+  const containerRect = container.getBoundingClientRect();
+  const buttonRect = noButton.getBoundingClientRect();
+
+  const maxLeft = containerRect.width - buttonRect.width;
+  const maxTop = containerRect.height - buttonRect.height;
+
+  const randomLeft = Math.random() * maxLeft;
+  const randomTop = Math.random() * maxTop;
+
+  noButton.style.position = "absolute";
+  noButton.style.left = `${randomLeft}px`;
+  noButton.style.top = `${randomTop}px`;
+}
+
+function showPage(pageId) {
+  document.getElementById("mainPage").classList.add("hidden");
+  document.getElementById("lovePage").classList.add("hidden");
+  document.getElementById("noPage").classList.add("hidden");
+  document.getElementById(pageId).classList.remove("hidden");
+}
+{
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+#mainImage {
+  margin-top: 16px;
+}
+.button-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-top: 32px;
+}
+.button {
+  font-weight: bold;
+  border-radius: 8px;
+  padding: 24px 48px;
+  font-size: 24px;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+#noButton {
+  background-image: linear-gradient(to right, #f87171, #ef4444, #dc2626);
+}
+#noButton:hover {
+  transform: scale(1.05) rotate(-5deg);
+}
+#loveButton {
+  background-image: linear-gradient(to right, #ec4899, #db2777, #be185d);
+}
+#loveButton:hover {
+  transform: scale(1.05) rotate(5deg);
+  background-image: linear-gradient(to right, #ff0077, #ff5599);
+}
+@media (max-width: 640px) {
+  .title {
+    font-size: 20px;
+  }
+  .button {
+    font-size: 20px;
+    padding: 20px 40px;
+  }
+}
+h1 {
+  font-weight: bold;
+  font-size: 24px;
+  text-align: center;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: white;
+}
+.container {
+  text-align: center;
+}
+.title {
+  font-weight: bold;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+.hidden {
+  display: none;
+}
+img {
+  display: block;
+  margin: 20px auto;
+}
